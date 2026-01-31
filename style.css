@@ -1,0 +1,234 @@
+#root {
+  width: 1280px;
+  padding: 10px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f8f9fa;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+h1 {
+  color: #2c3e50;
+  text-align: center;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #3498db;
+  font-size: 32px;
+}
+
+.books-container {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.list-container {
+  flex: 1;
+}
+
+.book-list {
+  flex: 1;
+  min-width: 300px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.list-item {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.book-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.book-button,
+.delete-button,
+.editing-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  margin-left: 15px;
+}
+
+.delete-button {
+  background-color: #eb8371;
+}
+
+.editing-button {
+  background-color: #f6f9f6;
+  color: rgb(107, 106, 106);
+  border-color: rgb(107, 106, 106);
+}
+
+.new-book-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.book-info {
+  flex: 1;
+  min-width: 300px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.book-info h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  font-size: 24px;
+}
+
+.book-author,
+.book-year,
+.book-dexcription,
+.message {
+  margin-bottom: 15px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.book-author,
+.book-year {
+  font-size: 16px;
+  color: #34495e;
+}
+
+.book-dexcription {
+  color: #555;
+  line-height: 1.7;
+  font-size: 16px;
+  padding-top: 10px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.form input[type='text'],
+.form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+}
+
+.submit-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.paginattion-button {
+  background-color: #f8fbfe;
+  color: rgb(54, 114, 217);
+  border: solid 2px rgb(54, 114, 217);
+  padding: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 6px;
+  margin-bottom: 10px;
+}
+
+.error-message {
+  color: #d32f2f;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 4px 0 8px 0;
+  padding: 4px 8px;
+  background-color: #ffebee;
+  border-radius: 4px;
+  border-left: 3px solid #d32f2f;
+}
+
+.loader {
+  color: #2f79d3;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 4px 0 8px 0;
+  padding: 4px 8px;
+  background-color: #ebefff;
+  border-radius: 4px;
+  border-left: 3px solid #2f79d3;
+}
