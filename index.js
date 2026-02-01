@@ -401,7 +401,6 @@ paginattionButton.addEventListener('click', async () => {
 newBookButton.addEventListener('click', showAddBookForm);
 
 document.addEventListener('DOMContentLoaded', async () => {
-  getBooks().then(books => {
-    console.log('Книги завантажені:', books);
-  });
+  await getBooks();
+  console.log('Книги завантажені:', books);
 });
