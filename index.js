@@ -2,7 +2,7 @@ const api = axios.create({
   baseURL: 'https://6971cf4a32c6bacb12c49096.mockapi.io',
 });
 
-const BASE_URL = 'https://6971cf4a32c6bacb12c49096.mockapi.io';
+// const BASE_URL = 'https://6971cf4a32c6bacb12c49096.mockapi.io';
 
 let currentPage = 1;
 
@@ -36,7 +36,7 @@ paginattionButton.style.display = 'none';
 async function getBooks() {
   try {
     createLoader('Завантаження...', bookList);
-    const { data } = await api.get(`${BASE_URL}/books`, {
+    const { data } = await api.get(`/books`, {
       params: {
         page: currentPage,
         limit: 5,
@@ -55,8 +55,24 @@ newBookButton.className = 'new-book-button';
 newBookButton.textContent = 'Додати нову книгу';
 listContainer.appendChild(newBookButton);
 
-function renderBookList(books) {
-  books.forEach(async book => {
+async function renderBookList(books) {
+  if (books.length === 5) {
+    paginattionButton.style.display = 'inline';
+    const { data } = await api.get(`/books`, {
+      params: {
+        page: currentPage + 1,
+        limit: 5,
+      },
+    });
+    if (data.length === 0) {
+      paginattionButton.style.display = 'none';
+      listEndMessage();
+    }
+  } else {
+    paginattionButton.style.display = 'none';
+    listEndMessage();
+  }
+  books.forEach(book => {
     const listItem = document.createElement('li');
     listItem.className = 'list-item';
     bookList.appendChild(listItem);
@@ -96,26 +112,6 @@ function renderBookList(books) {
     booksEditingButton.addEventListener('click', () => {
       editBook(book.id);
     });
-
-    if (books.length === 5) {
-      paginattionButton.style.display = 'inline';
-      const { data } = await api.get(`${BASE_URL}/books`, {
-        params: {
-          page: currentPage + 1,
-          limit: 5,
-        },
-      });
-      if (data.length === 0) {
-        paginattionButton.style.display = 'none';
-      }
-    } else {
-      paginattionButton.style.display = 'none';
-      bookInfo.innerHTML = '';
-      const messagePag = document.createElement('p');
-      messagePag.className = 'book-title';
-      messagePag.textContent = 'Кінець списку';
-      bookInfo.appendChild(messagePag);
-    }
   });
 }
 
@@ -130,7 +126,7 @@ async function showBookDetails(idOfBook) {
   bookInfo.innerHTML = '';
   createLoader('Завантаження...', bookInfo);
   try {
-    const { data } = await api.get(`${BASE_URL}/books/${idOfBook}`);
+    const { data } = await api.get(`/books/${idOfBook}`);
     bookInfo.innerHTML = '';
     const bookTitle = document.createElement('h2');
     bookTitle.className = 'book-title';
@@ -298,7 +294,7 @@ function showAddBookForm() {
           description: descriptionInput.value.trim(),
         };
 
-        await api.post(`${BASE_URL}/books`, newBook);
+        await api.post(`/books`, newBook);
         currentPage = 1;
         bookList.innerHTML = '';
         await getBooks();
@@ -314,7 +310,7 @@ async function deleteBook(bookID) {
   bookInfo.innerHTML = '';
   createLoader('Видалення книги...', bookInfo);
   try {
-    await api.delete(`${BASE_URL}/books/${bookID}`);
+    await api.delete(`/books/${bookID}`);
     currentPage = 1;
     bookList.innerHTML = '';
     await getBooks();
@@ -326,7 +322,7 @@ async function deleteBook(bookID) {
 
 async function editBook(idOfBook) {
   try {
-    const { data } = await api.get(`${BASE_URL}/books/${idOfBook}`);
+    const { data } = await api.get(`/books/${idOfBook}`);
     const { form, titleInput, authorInput, yearInput, descriptionInput } =
       createForm(data.title, data.author, data.year, data.description);
 
@@ -349,7 +345,7 @@ async function editBook(idOfBook) {
         try {
           bookInfo.innerHTML = '';
           createLoader('Редагування книги...', bookInfo);
-          await api.put(`${BASE_URL}/books/${idOfBook}`, bookData);
+          await api.put(`/books/${idOfBook}`, bookData);
           currentPage = 1;
           bookList.innerHTML = '';
           await getBooks();
@@ -393,7 +389,16 @@ function editMessage() {
   bookInfo.appendChild(message);
 }
 
+function listEndMessage() {
+  bookInfo.innerHTML = '';
+  const messagePag = document.createElement('p');
+  messagePag.className = 'book-title';
+  messagePag.textContent = 'Кінець списку';
+  bookInfo.appendChild(messagePag);
+}
+
 paginattionButton.addEventListener('click', async () => {
+  paginattionButton.style.display = 'none';
   currentPage += 1;
   getBooks();
 });
@@ -402,5 +407,5 @@ newBookButton.addEventListener('click', showAddBookForm);
 
 document.addEventListener('DOMContentLoaded', async () => {
   await getBooks();
-  console.log('Книги завантажені:', books);
+  console.log('Книги завантажені:');
 });
