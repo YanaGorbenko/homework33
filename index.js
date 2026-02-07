@@ -56,22 +56,6 @@ newBookButton.textContent = 'Додати нову книгу';
 listContainer.appendChild(newBookButton);
 
 async function renderBookList(books) {
-  if (books.length === 5) {
-    paginattionButton.style.display = 'inline';
-    const { data } = await api.get(`/books`, {
-      params: {
-        page: currentPage + 1,
-        limit: 5,
-      },
-    });
-    if (data.length === 0) {
-      paginattionButton.style.display = 'none';
-      listEndMessage();
-    }
-  } else {
-    paginattionButton.style.display = 'none';
-    listEndMessage();
-  }
   books.forEach(book => {
     const listItem = document.createElement('li');
     listItem.className = 'list-item';
@@ -100,6 +84,13 @@ async function renderBookList(books) {
     booksEditingButton.className = 'editing-button';
     booksEditingButton.textContent = 'Редагувати';
     buttonsContainer.appendChild(booksEditingButton);
+
+    if (books.length === 5) {
+      paginattionButton.style.display = 'inline';
+    } else {
+      paginattionButton.style.display = 'none';
+      listEndMessage();
+    }
 
     buttonForBook.addEventListener('click', () => {
       showBookDetails(book.id);
